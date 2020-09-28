@@ -32,7 +32,8 @@ def change_float_list(int_list):
     for n in int_list:
         float_list.append(round(float(n), ndigits=4))
     return float_list
-        
+
+
 def sequence_variations(sequence):
     variations = [change_float_list(sequence)]
     cum_sum = [sequence[0]]
@@ -72,7 +73,7 @@ def process_all_files(files_names):
             print('\tSequence:\n\t\t')
             print('\tCumulative sum:\n\t\t')
             print('\tSorted sequence:\n\t\t')
-            print('\tMedianm:\n\t\t')
+            print('\tMedian:\n\t\t')
             print()
             continue
         variations = sequence_variations(sequence)
