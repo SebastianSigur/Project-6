@@ -1,9 +1,10 @@
 def open_file(file_name):
     try:
-        file  = open(file_name)
+        file = open(file_name)
         return file
-    except FileExistsError:
+    except FileNotFoundError:
         return None
+
 
 def get_sequence(file_names):
     list_of_sequences = []
@@ -12,7 +13,7 @@ def get_sequence(file_names):
         file = open_file(file_name)
 
         if file == None:
-            return None
+            list_of_sequences.append(None)
         else:
             for line in file:
                 number = line.split('\n')[0]
@@ -25,15 +26,22 @@ def get_sequence(file_names):
         list_of_sequences.append(sequence)
     return list_of_sequences
 
+
+def change_float_list(int_list):
+    float_list = []
+    for n in int_list:
+        float_list.append(round(float(n), ndigits=4))
+    return float_list
+        
 def sequence_variations(sequence):
-    variations = [sequence]
+    variations = [change_float_list(sequence)]
     cum_sum = [sequence[0]]
     sequence_sorted = sorted(sequence)
     next_num = sequence[0]
 
     for num in range(1, len(sequence)):
         next_num += sequence[num]
-        cum_sum.append(round(next_num, 4))
+        cum_sum.append(next_num)
 
     if len(sequence) % 2 == 0:
         first_middle = sequence_sorted[(len(sequence_sorted) // 2) - 1]
@@ -44,25 +52,36 @@ def sequence_variations(sequence):
     else:
         median = sequence_sorted[(len(sequence_sorted) // 2)]
 
-    variations.append(cum_sum)
-    variations.append(sequence_sorted)
-    variations.append(round(median, 4))
+    variations.append(change_float_list(cum_sum))
+    variations.append(change_float_list(sequence_sorted))
+    variations.append(round(float(median), ndigits=4))
 
     return variations
 
 
 def process_all_files(files_names):
+
+    print()
     sequences = get_sequence(files_names)
-    if sequences == None:
-        print('File {} not found'.format(files_names))
-        return 
     for n, sequence in enumerate(sequences):
+        if sequence == None:
+            print('File {} not found'.format(files_names[n]))
+            break
+        if len(sequence) == 0:
+            print('File {}'.format(files_names[n]))
+            print('\tSequence:\n\t\t')
+            print('\tCumulative sum:\n\t\t')
+            print('\tSorted sequence:\n\t\t')
+            print('\tMedianm:\n\t\t')
+            print()
+            continue
         variations = sequence_variations(sequence)
         print('File {}'.format(files_names[n]))
-        print('\tSequence: ' + str(variations[0])[1:-1])
-        print('\tCumulative sum: ' + str(variations[1])[1:-1])
-        print('\tSorted sequence: ' + str(variations[2])[1:-1])
-        print('\tMedianm: ' + str(variations[3]))
+        print('\tSequence:\n\t\t' + str(variations[0])[1:-1].replace(',', '') + ' ')
+        print('\tCumulative sum:\n\t\t' + str(variations[1])[1:-1].replace(',', '') + ' ')
+        print('\tSorted sequence:\n\t\t' + str(variations[2])[1:-1].replace(',', '') + ' ')
+        print('\tMedian:\n\t\t' + str(variations[3]))
+        print()
 
 # Main program starts here
 filename_list = input("Enter filenames: ").split()
