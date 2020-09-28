@@ -29,10 +29,6 @@ def sequence_variations(sequence):
     variations = [sequence]
     cum_sum = [sequence[0]]
     sequence_sorted = sorted(sequence)
-    median = 0
-
-    print(sequence)
-    print (sequence_sorted)
 
     next_num = sequence[0]
 
@@ -57,4 +53,10 @@ def sequence_variations(sequence):
 
 # Main program starts here
 #filename_list = input("Enter filenames: ").split()
-process_all_files(['data1.txt', 'data2.txt'])
+proccesed_lists = lists = process_all_files(['data1.txt', 'data2.txt'])
+
+for n, list in enumerate(proccesed_lists):
+    print('File {}'.fil)
+    print('Sequence: {}')
+    print('Sequence: {}')
+    print('Sequence: {}')
