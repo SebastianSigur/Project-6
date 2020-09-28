@@ -52,8 +52,11 @@ def sequence_variations(sequence):
 
 
 def process_all_files(files_names):
-    sequencees = get_sequence(files_names)
-    for n, sequence in enumerate(sequencees):
+    sequences = get_sequence(files_names)
+    if sequences == None:
+        print('File {} not found'.format(files_names))
+        return 
+    for n, sequence in enumerate(sequences):
         variations = sequence_variations(sequence)
         print('File {}'.format(files_names[n]))
         print('\tSequence: ' + str(variations[0])[1:-1])
