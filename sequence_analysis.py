@@ -5,9 +5,9 @@ def open_file(file_name):
     except FileExistsError:
         return None
 
-def process_all_files(files_names):
+def get_sequence(file_names):
     list_of_sequences = []
-    for file_name in files_names:
+    for file_name in file_names:
         sequence = []
         file = open_file(file_name)
 
@@ -29,19 +29,18 @@ def sequence_variations(sequence):
     variations = [sequence]
     cum_sum = [sequence[0]]
     sequence_sorted = sorted(sequence)
-
     next_num = sequence[0]
 
     for num in range(1, len(sequence)):
         next_num += sequence[num]
         cum_sum.append(next_num)
-    
+
     if len(sequence) % 2 == 0:
         first_middle = sequence_sorted[(len(sequence_sorted) // 2) - 1]
         second_middle = sequence_sorted[(len(sequence_sorted) // 2)]
 
         median = (first_middle + second_middle) / 2
-    
+
     else:
         median = sequence_sorted[(len(sequence_sorted) // 2)]
 
@@ -51,12 +50,17 @@ def sequence_variations(sequence):
 
     return variations
 
-# Main program starts here
-#filename_list = input("Enter filenames: ").split()
-proccesed_lists = lists = process_all_files(['data1.txt', 'data2.txt'])
 
-for n, list in enumerate(proccesed_lists):
-    print('File {}'.fil)
-    print('Sequence: {}')
-    print('Sequence: {}')
-    print('Sequence: {}')
+def process_all_files(files_names):
+    sequencees = get_sequence(files_names)
+    for n, sequence in enumerate(sequencees):
+        variations = sequence_variations(sequence)
+        print('File {}'.format(files_names[n]))
+        print('         Sequence: {}'.format(variations[0]))
+        print('         Cumulative sum: '.format(variations[1]))
+        print('         Sorted sequence: '.format(variations[2]))
+        print('         Medianm: '.format(variations[3]))
+
+# Main program starts here
+filename_list = input("Enter filenames: ").split()
+process_all_files(filename_list)
