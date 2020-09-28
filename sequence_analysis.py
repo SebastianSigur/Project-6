@@ -33,7 +33,7 @@ def sequence_variations(sequence):
 
     for num in range(1, len(sequence)):
         next_num += sequence[num]
-        cum_sum.append(next_num)
+        cum_sum.append(round(next_num, 4))
 
     if len(sequence) % 2 == 0:
         first_middle = sequence_sorted[(len(sequence_sorted) // 2) - 1]
@@ -46,7 +46,7 @@ def sequence_variations(sequence):
 
     variations.append(cum_sum)
     variations.append(sequence_sorted)
-    variations.append(median)
+    variations.append(round(median, 4))
 
     return variations
 
@@ -56,10 +56,10 @@ def process_all_files(files_names):
     for n, sequence in enumerate(sequencees):
         variations = sequence_variations(sequence)
         print('File {}'.format(files_names[n]))
-        print('         Sequence: {}'.format(variations[0]))
-        print('         Cumulative sum: '.format(variations[1]))
-        print('         Sorted sequence: '.format(variations[2]))
-        print('         Medianm: '.format(variations[3]))
+        print('\tSequence: ' + str(variations[0])[1:-1])
+        print('\tCumulative sum: ' + str(variations[1])[1:-1])
+        print('\tSorted sequence: ' + str(variations[2])[1:-1])
+        print('\tMedianm: ' + str(variations[3]))
 
 # Main program starts here
 filename_list = input("Enter filenames: ").split()
