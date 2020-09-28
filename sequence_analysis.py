@@ -16,6 +16,7 @@ def get_sequence(file_names):
             list_of_sequences.append(None)
         else:
             for line in file:
+                line = line.strip()
                 number = line.split('\n')[0]
                 # check if only digit
                 if number.replace('-', '').isdigit():
