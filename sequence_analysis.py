@@ -62,7 +62,6 @@ def sequence_variations(sequence):
 
 
 def process_all_files(files_names):
-
     print()
     sequences = get_sequence(files_names)
     for n, sequence in enumerate(sequences):
